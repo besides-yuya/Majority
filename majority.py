@@ -25,13 +25,13 @@ def majority():
     ########################
     # parameter definition #
     ########################
-    trainingDataNum = 28 # the number of training datas
-    testDataNum = 4 # the number of test datas
-    inputNodeNum = 5 # the number of nodes of input layer
-    hiddenNodeNum = 3 # the number of nodes of hidden layer
-    outputNodeNum = 1 # the number of nodes of output layer
+    numTrainingData = 28 # the number of training datas
+    numTestData = 4 # the number of test datas
+    numInputNode = 5 # the number of nodes of input layer
+    numHiddenNode = 3 # the number of nodes of hidden layer
+    numOutputNode = 1 # the number of nodes of output layer
     learningRate = 1 # learning rate
-    epochNum = 5000 # the number of epoch
+    epoch = 5000 # the number of epoch
     errorThreshold = 0.0001 # the number of epoch
     ##############
     # load datas #
@@ -48,25 +48,25 @@ def majority():
     # wo is the weight between hidden layer and output layer #
     ##########################################################
     rng = np.random
-    wh = rng.randn(inputNodeNum, hiddenNodeNum)
-    wo = rng.randn(hiddenNodeNum, )
+    wh = rng.randn(numInputNode, numHiddenNode)
+    wo = rng.randn(numHiddenNode, )
     ########################################################
     # inilialize biases bh and bo to zero                  #
     # bh is the bias between input layer and hidden layer  #
     # bo is the bias between hidden layer and output layer #
     ########################################################
-    bh = np.zeros((hiddenNodeNum,), float)
-    bo = np.zeros((outputNodeNum,), float)
+    bh = np.zeros((numHiddenNode,), float)
+    bo = np.zeros((numOutputNode,), float)
 
     ######################
     # training procedure #
     ######################
     count = 0
     err = 1.
-    while (count < epochNum) and (err > errorThreshold):
+    while (count < epoch) and (err > errorThreshold):
         count += 1
         err = 0.
-        for i in range(trainingDataNum):
+        for i in range(numTrainingData):
             h = sigmoid(np.dot(training[i],wh)+bh)
             o = sigmoid(np.dot(h,wo)+bo)
             L_over_f = diff_mean_squared_error(o,label[i]) 
@@ -93,13 +93,13 @@ def majority():
             o = sigmoid(np.dot(h,wo)+bo)
             err += mean_squared_error(o,label[i])
             
-            if (i==trainingDataNum-1):
+            if (i==numTrainingData-1):
                 print(err)
 
     #########################
     # test data calculation #
     #########################
-    for i in range(testDataNum):
+    for i in range(numTestData):
         h = sigmoid(np.dot(test[i],wh)+bh)
         o = sigmoid(np.dot(h,wo)+bo)
         print(o)
